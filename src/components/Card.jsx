@@ -22,7 +22,7 @@ export default function Card({
 
                     {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
 
-                    <Text style={styles.price}>{price.toFixed(2)}</Text>
+                    <Text style={styles.price}>€{price.toFixed(2)}</Text>
                 </View>
             </View>
         </TouchableOpacity>

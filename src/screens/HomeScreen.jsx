@@ -1,12 +1,19 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { featuredItems } from '../data/menuItems';
+import { featuredItems, getItemsByCategory } from '../data/menuItems';
 import Card from '../components/Card';
+import { categories } from '../data/categoriesData';
+import CategoryCard from '../components/CategoryCard';
 
 const HomeScreen = () => {
     const itemPressHandler = (itemId) => {
         // Handle item press, e.g., navigate to details screen
         console.log('Item pressed:', itemId);
     };
+
+    const categoryPressHandler = (categoryId) => {
+        // Handle category press, e.g., navigate to category screen
+        console.log('Category pressed:', categoryId);
+    }
 
     return (
         <ScrollView>
@@ -29,11 +36,28 @@ const HomeScreen = () => {
                         <View key={item.id} style={styles.featuredCard}>
                             <Card
                                 {...item}
-                                onPress={() => itemPressHandler(item.id)}
+                                onPress={itemPressHandler}
                             />
                         </View>
                     ))}
                 </ScrollView>
+            </View>
+
+            {/* Category Section */}
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Categories</Text>
+                {categories.map((category) => {
+                    const itemCount = getItemsByCategory(category.id).length;
+
+                    return (
+                        <CategoryCard
+                            key={category.id}
+                            itemCount={itemCount}
+                            {...category}
+                            onPress={categoryPressHandler}
+                        />
+                    );
+                })}
             </View>
         </ScrollView>
     );

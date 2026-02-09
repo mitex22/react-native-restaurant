@@ -12,7 +12,11 @@ const RootNavigator = () => {
     return (
         <NavigationContainer>
             <Tabs.Navigator>
-                <Tabs.Screen name='HomeTab' component={HomeNavigator} />
+                <Tabs.Screen
+                    name='HomeTab'
+                    component={HomeNavigator}
+                    options={{ headerShown: false }}
+                />
                 <Tabs.Screen name='CartTab' component={CartNavigator} />
                 <Tabs.Screen name='InfoTab' component={InfoScreen} />
             </Tabs.Navigator>

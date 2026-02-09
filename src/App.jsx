@@ -10,9 +10,9 @@ export default function App() {
 
             <StatusBar style="auto" />
 
-            <SafeAreaView style={styles.safeArea}>
+            {/* <SafeAreaView style={styles.safeArea}> */}
                 <RootNavigator />
-            </SafeAreaView>
+            {/* </SafeAreaView> */}
         </SafeAreaProvider>
     );
 }

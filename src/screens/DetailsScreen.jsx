@@ -11,6 +11,10 @@ export default function DetailsScreen({
 
     const item = getItemById(itemId);
 
+    const viewCartPressHandler = () => {
+        navigation.navigate('CartTab');
+    };
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -51,7 +55,7 @@ export default function DetailsScreen({
                             variant="outline"
                             style={styles.viewCartButton}
                             // todo add onPress handler
-                            onPress={() => navigation.navigate('Cart')}
+                            onPress={viewCartPressHandler}
                         />
                     </View>
                 </View>

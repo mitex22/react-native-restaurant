@@ -4,15 +4,16 @@ import Card from '../components/Card';
 import { categories } from '../data/categoriesData';
 import CategoryCard from '../components/CategoryCard';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
+
     const itemPressHandler = (itemId) => {
         // Handle item press, e.g., navigate to details screen
-        console.log('Item pressed:', itemId);
+        navigation.navigate('Details', { itemId });
     };
-
+    
     const categoryPressHandler = (categoryId) => {
         // Handle category press, e.g., navigate to category screen
-        console.log('Category pressed:', categoryId);
+        navigation.navigate('Category', { categoryId});
     }
 
     return (

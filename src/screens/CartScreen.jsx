@@ -6,7 +6,7 @@ import CartItem from '../components/CartItem';
 
 export default function CartScreen() {
     const [cartItems, setCartItems] = useState(() => {
-        return featuredItems.map(item => ({ ...item, quantity: 2 }));
+        return featuredItems.map(item => ({ ...item, quantity: 3 }));
     });
 
     return (

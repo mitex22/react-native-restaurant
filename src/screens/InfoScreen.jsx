@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 const InfoScreen = () => {
     return (
         <View style={styles.container}>
-            <Text>Cart</Text>
+            <Text>Info</Text>
         </View>
     )
 }

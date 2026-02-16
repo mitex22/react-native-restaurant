@@ -1,14 +1,30 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { featuredItems, getItemsByCategory } from '../data/menuItems';
 import Card from '../components/Card';
-import { categories } from '../data/categoriesData';
 import CategoryCard from '../components/CategoryCard';
+import * as categoryApi from '../api/categoryApi';
+import { useEffect, useState } from 'react';
 
 const HomeScreen = ({ navigation }) => {
 
-    const itemPressHandler = (itemId) => {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const loadCategories = async () => {
+            try {
+                const data = await categoryApi.getAll();
+                setCategories(data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        loadCategories();
+    }, []);
+
+    const itemPressHandler = (mealId) => {
         // Handle item press, e.g., navigate to details screen
-        navigation.navigate('Details', { itemId });
+        navigation.navigate('Details', { mealId });
     };
     
     const categoryPressHandler = (categoryId) => {

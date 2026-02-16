@@ -1,15 +1,37 @@
 import { ScrollView, Text, View, Image, StyleSheet } from "react-native";
 
-import { getItemById } from "../data/menuItems";
 import Button from "../components/Button";
+import * as mealApi from "../api/mealApi";
+import { useEffect, useState } from "react";
 
 export default function DetailsScreen({
     route,
     navigation,
 }) {
-    const { itemId } = route.params;
+    const { mealId } = route.params;
 
-    const item = getItemById(itemId);
+    const [meal, setMeal] = useState(null);
+
+    useEffect(() => {
+        const loadMeal = async () => {
+            try {
+                const data = await mealApi.getById(mealId);
+                setMeal(data);
+            } catch (error) {
+                console.error('Error fetching meal details:', error);
+            }
+        };
+
+        loadMeal();
+    }, [mealId]);
+
+    if (!meal) {
+        return (
+            <View style={styles.center}>
+                <Text style={styles.errorText}>Meal not found</Text>
+            </View>
+        );
+    }
 
     const viewCartPressHandler = () => {
         navigation.navigate('CartTab');
@@ -19,15 +41,15 @@ export default function DetailsScreen({
         <View style={styles.container}>
             <ScrollView>
                 <Image
-                    source={{ uri: item.imageUrl }}
+                    source={{ uri: meal.imageUrl }}
                     style={styles.image}
                     resizeMode="cover"
                 />
 
                 <View style={styles.content}>
-                    <Text style={styles.name}>{item.name}</Text>
-                    <Text style={styles.description}>{item.description}</Text>
-                    <Text style={styles.basePrice}>Base price: ${item.price.toFixed(2)}</Text>
+                    <Text style={styles.name}>{meal.name}</Text>
+                    <Text style={styles.description}>{meal.description}</Text>
+                    <Text style={styles.basePrice}>Base price: ${meal.price.toFixed(2)}</Text>
 
                     <View style={styles.divider} />
 
@@ -42,7 +64,7 @@ export default function DetailsScreen({
                 <View style={styles.footer}>
                     <View style={styles.priceContainer}>
                         <Text style={styles.totalLabel}>Total:</Text>
-                        <Text style={styles.totalPrice}>${item.price.toFixed(2)}</Text>
+                        <Text style={styles.totalPrice}>${meal.price.toFixed(2)}</Text>
                     </View>
                     <View style={styles.footerButtons}>
                         <Button

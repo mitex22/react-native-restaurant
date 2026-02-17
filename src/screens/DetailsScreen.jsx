@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import * as mealApi from "../api/mealApi";
 import { useEffect, useState } from "react";
 import QuantityStepper from "../components/QuantityStepper";
+import { useCartContext } from "../contexts/cart/CartContext";
 
 export default function DetailsScreen({
     route,
@@ -12,6 +13,8 @@ export default function DetailsScreen({
     const { mealId } = route.params;
 
     const [meal, setMeal] = useState(null);
+
+    const { addToCart } = useCartContext();
 
     const [quantity, setQuantity] = useState(1);
 
@@ -37,6 +40,13 @@ export default function DetailsScreen({
     }
 
     const viewCartPressHandler = () => {
+        navigation.navigate('CartModal');
+    };
+
+    const addToCartHandler = () => {
+        addToCart(meal, quantity);
+
+        // Optionally navigate to cart after adding
         navigation.navigate('CartModal');
     };
 
@@ -76,7 +86,7 @@ export default function DetailsScreen({
                         <Button
                             title="Add to Cart"
                             style={styles.addButton}
-                        // todo add onPress handler
+                            onPress={addToCartHandler}
                         />
                         <Button
                             title="View Cart"

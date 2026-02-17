@@ -34,13 +34,37 @@ const CartProvider = ({ children }) => {
         total: 5,
     });
 
+    const addToCart = (meal, quantity) => {
+        setState((currentState) => {
+            const existingItem = currentState.items.find(item => item.meal.id === meal.id);
+            
+            if (existingItem) {
+                return {
+                    ...currentState,
+                    items: currentState.items.map(item =>
+                        item.meal.id === meal.id
+                            ? { ...item, quantity: item.quantity + quantity }
+                            : item
+                    ),
+                    total: currentState.total + quantity,
+                };
+            }
+            
+            return {
+                items: [...currentState.items, { meal, extras: {}, quantity }],
+                total: currentState.total + quantity,
+            };
+        });
+    };
+
     const data = {
         items: state.items,
         total: state.total,
+        addToCart
     };
 
     return (
-        <CartContext.Provider value={{ ...data, setState }}>
+        <CartContext.Provider value={data}>
             {children}
         </CartContext.Provider>
     )

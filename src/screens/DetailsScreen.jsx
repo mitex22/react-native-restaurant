@@ -34,7 +34,7 @@ export default function DetailsScreen({
     }
 
     const viewCartPressHandler = () => {
-        navigation.navigate('CartTab');
+        navigation.navigate('CartModal');
     };
 
     return (

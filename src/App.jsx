@@ -4,19 +4,25 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import RootNavigator from './navigation/RootNavigator';
 import { NavigationContainer } from '@react-navigation/native';
+import CartProvider from './contexts/cart/CartProvider';
 
 export default function App() {
     return (
         <SafeAreaProvider>
 
-            <StatusBar style="auto" />
             <NavigationContainer>
+                
+                <StatusBar style="auto" />
+                <CartProvider>
 
-                {/* <SafeAreaView style={styles.safeArea}> */}
-                <RootNavigator />
-                {/* </SafeAreaView> */}
+                    {/* <SafeAreaView style={styles.safeArea}> */}
+                    <RootNavigator />
+                    {/* </SafeAreaView> */}
+
+                </CartProvider>
 
             </NavigationContainer>
+
         </SafeAreaProvider>
     );
 }

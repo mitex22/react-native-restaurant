@@ -1,52 +1,26 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import HomeNavigator from './HomeNavigator';
-import { NavigationContainer } from '@react-navigation/native';
-import CartNavigator from './CartNavigator';
-import InfoScreen from '../screens/InfoScreen';
-import { Ionicons } from '@expo/vector-icons';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import TabNavigator from "./TabNavigator";
+import CartScreen from "../screens/CartScreen";
 
 const RootNavigator = () => {
 
-    const Tabs = createBottomTabNavigator();
+    const Stack = createNativeStackNavigator();
 
     return (
-        <NavigationContainer>
-            <Tabs.Navigator>
-                <Tabs.Screen
-                    name='HomeTab'
-                    component={HomeNavigator}
-                    options={
-                        {
-                            title: 'Home',
-                            headerShown: false,
-                            tabBarIcon: ({ color, size }) => <Ionicons name="home" size={size} color={color} /> 
-                        }
-                    }
-                />
-                <Tabs.Screen 
-                    name='CartTab' 
-                    component={CartNavigator}
-                    options={
-                        {
-                            title: 'Cart',
-                            headerShown: false,
-                            tabBarIcon: ({ color, size }) => <Ionicons name="cart" size={size} color={color} /> 
-                        }
-                    }
-                />
-                <Tabs.Screen 
-                    name='InfoTab' 
-                    component={InfoScreen}
-                    options={
-                        {
-                            title: 'Info',
-                            tabBarIcon: ({ color, size }) => <Ionicons name="information-circle" size={size} color={color} /> 
-                        }
-                    }
-                />
-            </Tabs.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name='TabNavigator' component={TabNavigator} />
+            <Stack.Screen 
+                name='CartModal' 
+                component={CartScreen} 
+                options={{
+                    // presentation: 'modal',
+                    headerShown: true,
+                    title: 'Cart',
+                    animation: 'slide_from_right',
+                    headerBackTitle: 'Back'
+                }}
+            />
+        </Stack.Navigator>
     )
 }
 

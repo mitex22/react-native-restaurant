@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getItemsByCategory } from '../data/menuItems';
 import Card from '../components/Card';
 import CategoryCard from '../components/CategoryCard';
@@ -10,6 +10,8 @@ const HomeScreen = ({ navigation }) => {
 
     const [categories, setCategories] = useState([]);
     const [featured, setFeatured] = useState([]);
+    const [toggleRefresh, setToggleRefresh] = useState(false);
+    const [refreshing, setRefreshing] = useState(true);
 
     useEffect(() => {
         const loadCategories = async () => {
@@ -21,7 +23,7 @@ const HomeScreen = ({ navigation }) => {
             }
         };
 
-        const loadFeaturedItems = async () => {
+        const loadFeatured = async () => {
             try {
                 const data = await mealApi.getFeatured();
                 setFeatured(data);
@@ -30,9 +32,14 @@ const HomeScreen = ({ navigation }) => {
             }
         };
 
-        loadCategories();
-        loadFeaturedItems();
-    }, []);
+        const loadData = async () => {
+            setRefreshing(true);
+            await Promise.all([loadCategories(), loadFeatured()]);
+            setRefreshing(false);
+        }
+
+        loadData();
+    }, [toggleRefresh]);
 
     const itemPressHandler = (mealId) => {
         // Handle item press, e.g., navigate to details screen
@@ -44,8 +51,14 @@ const HomeScreen = ({ navigation }) => {
         navigation.navigate('Category', { categoryId});
     }
 
+    const refreshHandler = () => {
+        setToggleRefresh(currentState => !currentState);
+    }
+
     return (
-        <ScrollView>
+        <ScrollView
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refreshHandler}/>}
+        >
             {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.restaurantName}>Tasty Bites</Text>

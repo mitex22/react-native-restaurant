@@ -3,6 +3,7 @@ import { ScrollView, Text, View, Image, StyleSheet } from "react-native";
 import Button from "../components/Button";
 import * as mealApi from "../api/mealApi";
 import { useEffect, useState } from "react";
+import QuantityStepper from "../components/QuantityStepper";
 
 export default function DetailsScreen({
     route,
@@ -11,6 +12,8 @@ export default function DetailsScreen({
     const { mealId } = route.params;
 
     const [meal, setMeal] = useState(null);
+
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         const loadMeal = async () => {
@@ -54,17 +57,20 @@ export default function DetailsScreen({
                     <View style={styles.divider} />
 
                     {/* Extra selector */}
-
                     <View style={styles.qtySection}>
                         <Text style={styles.qtyLabel}>Quantity</Text>
-                        <Text> - 1 + </Text>
+                        <QuantityStepper 
+                            qty={quantity} 
+                            onIncrement={() => setQuantity(quantity + 1)} 
+                            onDecrement={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} 
+                        />
                     </View>
                 </View>
 
                 <View style={styles.footer}>
                     <View style={styles.priceContainer}>
                         <Text style={styles.totalLabel}>Total:</Text>
-                        <Text style={styles.totalPrice}>${meal.price.toFixed(2)}</Text>
+                        <Text style={styles.totalPrice}>${(meal.price * quantity).toFixed(2)}</Text>
                     </View>
                     <View style={styles.footerButtons}>
                         <Button

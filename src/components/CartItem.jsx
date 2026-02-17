@@ -1,4 +1,5 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import QuantityStepper from "./QuantityStepper";
 
 export default function CartItem({
     imageUrl,
@@ -11,7 +12,6 @@ export default function CartItem({
             <Image source={{ uri: imageUrl }} style={styles.image} />
             <View style={styles.content}>
                 <Text style={styles.name}>{name}</Text>
-                {/* <Text style={styles.options}>{formatOptions(line.options)}</Text> */}
                 <View style={styles.priceRow}>
                     <Text style={styles.price}>${(quantity * price).toFixed(2)}</Text>
                     <Text style={styles.unitPrice}>
@@ -21,8 +21,16 @@ export default function CartItem({
             </View>
             <View style={styles.actions}>
                 {/* Change quantity */}
+                <QuantityStepper
+                    qty={quantity}
+                    onIncrement={() => increaseQuantity(index)}
+                    onDecrement={() => decreaseQuantity(index)}
+                />
 
-                {/* remove item */}
+                {/* Remove item */}
+                <TouchableOpacity onPress={() => removeItem(index)} style={styles.removeButton}>
+                    <Text style={styles.removeText}>Remove</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

@@ -42,12 +42,10 @@ const HomeScreen = ({ navigation }) => {
     }, [toggleRefresh]);
 
     const itemPressHandler = (mealId) => {
-        // Handle item press, e.g., navigate to details screen
         navigation.navigate('Details', { mealId });
     };
     
     const categoryPressHandler = (categoryId) => {
-        // Handle category press, e.g., navigate to category screen
         navigation.navigate('Category', { categoryId});
     }
 

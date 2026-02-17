@@ -1,13 +1,15 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { featuredItems, getItemsByCategory } from '../data/menuItems';
+import { getItemsByCategory } from '../data/menuItems';
 import Card from '../components/Card';
 import CategoryCard from '../components/CategoryCard';
 import * as categoryApi from '../api/categoryApi';
+import * as mealApi from '../api/mealApi';
 import { useEffect, useState } from 'react';
 
 const HomeScreen = ({ navigation }) => {
 
     const [categories, setCategories] = useState([]);
+    const [featured, setFeatured] = useState([]);
 
     useEffect(() => {
         const loadCategories = async () => {
@@ -19,7 +21,17 @@ const HomeScreen = ({ navigation }) => {
             }
         };
 
+        const loadFeaturedItems = async () => {
+            try {
+                const data = await mealApi.getFeatured();
+                setFeatured(data);
+            } catch (error) {
+                console.error('Error fetching featured items:', error);
+            }
+        };
+
         loadCategories();
+        loadFeaturedItems();
     }, []);
 
     const itemPressHandler = (mealId) => {
@@ -49,7 +61,7 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Featured Items</Text>
                 <ScrollView horizontal style={styles.featuredList}>
-                    {featuredItems.map((item) => (
+                    {featured.map((item) => (
                         <View key={item.id} style={styles.featuredCard}>
                             <Card
                                 {...item}

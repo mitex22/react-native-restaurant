@@ -22,3 +22,10 @@ export const getById = async (mealId) => {
 
     return response.data;
 }
+
+export const getFeatured = async () => {
+
+    const response = await api.get('/meals', { params: { featured: true } });
+
+    return response.data;
+}

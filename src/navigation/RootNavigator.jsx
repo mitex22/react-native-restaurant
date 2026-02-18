@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./TabNavigator";
 import CartScreen from "../screens/CartScreen";
+import CheckoutScreen from "../screens/CheckoutScreen";
 
 const RootNavigator = () => {
 
@@ -18,6 +19,15 @@ const RootNavigator = () => {
                     title: 'Cart',
                     animation: 'slide_from_right',
                     headerBackTitle: 'Back'
+                }}
+            />
+            <Stack.Screen 
+                name='Checkout' 
+                component={CheckoutScreen} 
+                options={{
+                    headerShown: true,
+                    title: 'Checkout',
+                    animation: 'slide_from_right',
                 }}
             />
         </Stack.Navigator>

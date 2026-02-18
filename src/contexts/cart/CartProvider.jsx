@@ -37,7 +37,7 @@ const CartProvider = ({ children }) => {
     const addToCart = (meal, quantity) => {
         setState((currentState) => {
             const existingItem = currentState.items.find(item => item.meal.id === meal.id);
-            
+
             if (existingItem) {
                 return {
                     ...currentState,
@@ -49,7 +49,7 @@ const CartProvider = ({ children }) => {
                     total: currentState.total + quantity,
                 };
             }
-            
+
             return {
                 items: [...currentState.items, { meal, extras: {}, quantity }],
                 total: currentState.total + quantity,
@@ -57,10 +57,60 @@ const CartProvider = ({ children }) => {
         });
     };
 
+    const increaseQuantity = (index) => {
+        setState((currentState) => {
+            const items = [...currentState.items];
+
+            items[index].quantity += 1;
+
+            return {
+                ...currentState,
+                items,
+                total: currentState.total + 1,
+            };
+        });
+    };
+
+    const decreaseQuantity = (index) => {
+        setState((currentState) => {
+            const items = [...currentState.items];
+
+            if (items[index].quantity > 1) {
+
+                items[index].quantity -= 1;
+
+                return {
+                    ...currentState,
+                    items,
+                    total: currentState.total - 1,
+                };
+            }
+
+            return currentState;
+        });
+    };
+
+    const removeItem = (index) => {
+        setState((currentState) => {
+            const items = [...currentState.items];
+
+            const removedItem = items.splice(index, 1)[0];
+            
+            return {
+                ...currentState,
+                items,
+                total: currentState.total - removedItem.quantity,
+            };
+        });
+    };
+
     const data = {
         items: state.items,
         total: state.total,
-        addToCart
+        addToCart,
+        increaseQuantity,
+        decreaseQuantity,
+        removeItem
     };
 
     return (

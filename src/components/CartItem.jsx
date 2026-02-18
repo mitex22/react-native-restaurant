@@ -1,12 +1,17 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import QuantityStepper from "./QuantityStepper";
+import { useCartContext } from "../contexts/cart/CartContext";
 
 export default function CartItem({
     imageUrl,
     name,
     quantity,
     price,
+    index,
 }) {
+
+    const { increaseQuantity, decreaseQuantity, removeItem } = useCartContext();
+
     return (
         <View style={styles.container}>
             <Image source={{ uri: imageUrl }} style={styles.image} />

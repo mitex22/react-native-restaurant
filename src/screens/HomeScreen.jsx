@@ -55,6 +55,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <ScrollView
+            testID="home-screen"
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refreshHandler}/>}
         >
             {/* Header */}

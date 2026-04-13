@@ -39,3 +39,7 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Detox / E2E
+e2e/artifacts
+.npm-cache

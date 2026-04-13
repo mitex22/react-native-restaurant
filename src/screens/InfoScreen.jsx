@@ -3,9 +3,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 const InfoScreen = () => {
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView testID="info-screen" style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.restaurantName}>Tasty Bites</Text>
+                <Text testID="info-restaurant-name" style={styles.restaurantName}>Tasty Bites</Text>
                 <Text style={styles.tagline}>Fresh & Delicious Food</Text>
             </View>
 
@@ -26,7 +26,7 @@ const InfoScreen = () => {
 
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Location</Text>
-                <TouchableOpacity style={styles.infoRow}>
+                <TouchableOpacity testID="info-location-row" style={styles.infoRow}>
                     <View style={styles.iconContainer}>
                         <Ionicons name="location-outline" size={22} color="#007AFF" />
                     </View>
@@ -59,7 +59,7 @@ const InfoScreen = () => {
 
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Contact</Text>
-                <TouchableOpacity style={styles.infoRow}>
+                <TouchableOpacity testID="info-phone-row" style={styles.infoRow}>
                     <View style={styles.iconContainer}>
                         <Ionicons name="call-outline" size={22} color="#007AFF" />
                     </View>

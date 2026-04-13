@@ -60,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
         >
             {/* Header */}
             <View style={styles.header}>
-                <Text style={styles.restaurantName}>Tasty Bites</Text>
+                <Text testID="home-restaurant-name" style={styles.restaurantName}>Tasty Bites</Text>
                 <View style={styles.headerInfo}>
                     <Text style={styles.infoText}>⭐ 4.8 Rating</Text>
                     <Text style={styles.infoDot}>•</Text>

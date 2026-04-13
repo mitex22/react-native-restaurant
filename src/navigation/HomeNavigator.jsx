@@ -15,7 +15,11 @@ const HomeNavigator = () => {
         <Stack.Navigator screenOptions={({ navigation }) => ({
             headerRight: () => {
                 return (
-                    <TouchableOpacity onPress={() => navigation.navigate('CartModal')} style={styles.cartButton}>
+                    <TouchableOpacity
+                        testID="home-header-cart-button"
+                        onPress={() => navigation.navigate('CartModal')}
+                        style={styles.cartButton}
+                    >
                         <Ionicons
                             name="cart"
                             size={24}

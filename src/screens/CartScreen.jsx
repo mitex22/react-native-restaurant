@@ -9,7 +9,7 @@ export default function CartScreen({ navigation, route }) {
     const { items, total, totalPrice } = useCartContext();
 
     return (
-        <View style={styles.container}>
+        <View testID="cart-screen" style={styles.container}>
             <FlatList
                 data={items}
                 renderItem={({ item, index }) => <CartItem index={index} quantity={item.quantity} {...item.meal} />}
@@ -17,7 +17,7 @@ export default function CartScreen({ navigation, route }) {
                 ListEmptyComponent={(
                     <View style={styles.emptyContainer}>
                         <Text style={styles.emptyIcon}>🛒</Text>
-                        <Text style={styles.emptyTitle}>Your cart is empty</Text>
+                        <Text testID="cart-empty-title" style={styles.emptyTitle}>Your cart is empty</Text>
                         <Text style={styles.emptySubtitle}>
                             Add some delicious items to get started
                         </Text>
@@ -35,6 +35,7 @@ export default function CartScreen({ navigation, route }) {
                     <Text style={styles.totalValue}>${totalPrice.toFixed(2)}</Text>
                 </View>
                 <Button
+                    testID="cart-proceed-checkout-button"
                     style={styles.checkoutButton}
                     disabled={items.length === 0}
                     onPress={() => navigation.navigate('Checkout')}

@@ -6,6 +6,7 @@ export default function Button({
     variant = 'primary',
     disabled = false,
     style,
+    testID,
 }) {
     return (
         <TouchableOpacity
@@ -19,6 +20,7 @@ export default function Button({
             onPress={onPress}
             disabled={disabled}
             activeOpacity={0.7}
+            testID={testID}
         >
             <Text
                 style={[
